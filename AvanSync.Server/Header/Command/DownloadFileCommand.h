@@ -5,6 +5,6 @@ class DownloadFileCommand : public AbstractCommand
 {
 public:
 	DownloadFileCommand() = default;
-	void execute() override;
+	void execute(Connection& connection) override;
 	bool isMatch(const std::string& input) const override;
 };

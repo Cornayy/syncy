@@ -7,7 +7,7 @@
 int main() {
     try {
         const char* server_address{ "localhost" };
-        const char* server_port{ "12345" };
+        const char* server_port{ "5000" };
         const char* prompt{ "avansync> " };
         const char* lf{ "\n" };
         const char* crlf{ "\r\n" };

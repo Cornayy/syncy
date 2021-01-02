@@ -1,6 +1,6 @@
 #include "../../Header/Command/SynchronizeDirectoryCommand.h"
 
-void SynchronizeDirectoryCommand::execute()
+void SynchronizeDirectoryCommand::execute(Connection& connection)
 {
 }
 

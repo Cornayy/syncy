@@ -1,6 +1,6 @@
 #include "../../Header/Command/RenameFileCommand.h"
 
-void RenameFileCommand::execute()
+void RenameFileCommand::execute(Connection& connection)
 {
 }
 

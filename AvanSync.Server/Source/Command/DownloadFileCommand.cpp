@@ -1,6 +1,6 @@
 #include "../../Header/Command/DownloadFileCommand.h"
 
-void DownloadFileCommand::execute()
+void DownloadFileCommand::execute(Connection& connection)
 {
 }
 

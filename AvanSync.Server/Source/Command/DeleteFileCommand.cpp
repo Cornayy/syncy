@@ -1,6 +1,6 @@
 #include "../../Header/Command/DeleteFileCommand.h"
 
-void DeleteFileCommand::execute()
+void DeleteFileCommand::execute(Connection& connection)
 {
 }
 

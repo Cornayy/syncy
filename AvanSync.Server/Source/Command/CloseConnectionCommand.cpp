@@ -1,6 +1,6 @@
 #include "../../Header/Command/CloseConnectionCommand.h"
 
-void CloseConnectionCommand::execute()
+void CloseConnectionCommand::execute(Connection& connection)
 {
 	
 }

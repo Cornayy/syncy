@@ -1,6 +1,6 @@
 #include "../../Header/Command/CreateDirectoryCommand.h"
 
-void CreateDirectoryCommand::execute()
+void CreateDirectoryCommand::execute(Connection& connection)
 {
 }
 

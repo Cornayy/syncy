@@ -1,6 +1,6 @@
 #include "../../Header/Command/ListDirectoryCommand.h"
 
-void ListDirectoryCommand::execute()
+void ListDirectoryCommand::execute(Connection& connection)
 {
 }
 

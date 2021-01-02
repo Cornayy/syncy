@@ -5,6 +5,6 @@ class ServerContextCommand : public AbstractCommand
 {
 public:
 	ServerContextCommand() = default;
-	void execute() override;
+	void execute(Connection& connection) override;
 	bool isMatch(const std::string& input) const override;
 };
