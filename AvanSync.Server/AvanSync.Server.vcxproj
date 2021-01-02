@@ -149,7 +149,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Command\CreateDirectoryCommand.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="Source\Command\CloseConnectionCommand.cpp" />
+    <ClCompile Include="Source\Command\DeleteFileCommand.cpp" />
+    <ClCompile Include="Source\Command\DownloadFileCommand.cpp" />
+    <ClCompile Include="Source\Command\ListDirectoryCommand.cpp" />
+    <ClCompile Include="Source\Command\RenameFileCommand.cpp" />
+    <ClCompile Include="Source\Command\ServerContextCommand.cpp" />
+    <ClCompile Include="Source\Command\SynchronizeDirectoryCommand.cpp" />
+    <ClCompile Include="Source\Command\UploadFileCommand.cpp" />
+    <ClCompile Include="Source\Factory\CommandFactory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header\Command\AbstractCommand.h" />
+    <ClInclude Include="Header\Command\CloseConnectionCommand.h" />
+    <ClInclude Include="Header\Command\ServerContextCommand.h" />
+    <ClInclude Include="Header\Command\CreateDirectoryCommand.h" />
+    <ClInclude Include="Header\Command\ListDirectoryCommand.h" />
+    <ClInclude Include="Header\Command\DeleteFileCommand.h" />
+    <ClInclude Include="Header\Command\DownloadFileCommand.h" />
+    <ClInclude Include="Header\Command\SynchronizeDirectoryCommand.h" />
+    <ClInclude Include="Header\Command\UploadFileCommand.h" />
+    <ClInclude Include="Header\Command\RenameFileCommand.h" />
+    <ClInclude Include="Header\Factory\CommandFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
