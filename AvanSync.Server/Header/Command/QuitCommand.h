@@ -1,10 +1,10 @@
 #pragma once
 #include "AbstractCommand.h"
 
-class CloseConnectionCommand : public AbstractCommand
+class QuitCommand : public AbstractCommand
 {
 public:
-	CloseConnectionCommand() = default;
+	QuitCommand() = default;
 	void execute(Connection& connection) override;
 	bool isMatch(const std::string& input) const override;
 };

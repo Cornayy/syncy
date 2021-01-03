@@ -7,6 +7,7 @@ class Connection
 public:
     Connection(int port);
     void connect();
+    void disconnect();
     void send(const std::string& output);
     bool isActive() const;
     std::string next();

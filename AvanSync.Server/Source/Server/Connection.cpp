@@ -15,6 +15,13 @@ void Connection::connect()
 	_client << "Welcome to AvanSync server 1.0" << Server::CRLF;
 }
 
+void Connection::disconnect()
+{
+	std::cerr << "will disconnect from client " << _client.socket().local_endpoint() << Server::LF;
+	_client << "Bye." << Server::CRLF;
+	_active = false;
+}
+
 void Connection::send(const std::string& output)
 {
 	_client << output << Server::CRLF;

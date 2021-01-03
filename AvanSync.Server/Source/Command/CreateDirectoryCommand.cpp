@@ -6,5 +6,5 @@ void CreateDirectoryCommand::execute(Connection& connection)
 
 bool CreateDirectoryCommand::isMatch(const std::string& input) const
 {
-	return input == "create-directory";
+	return input == "mkdir";
 }

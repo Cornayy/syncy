@@ -6,16 +6,20 @@
 #include "Header/Server/Server.h"
 
 int main() {
-    try 
-    {
-        const Server server{ Server::PORT };
-        server.listen();
-    }
-    catch (const std::exception& ex)
-    {
-        std::cerr << "server: " << ex.what() << Server::LF;
-        return EXIT_FAILURE;
-    }
+
+	while(true)
+	{
+        try
+        {
+            const Server server{ Server::PORT };
+            server.listen();
+        }
+        catch (const std::exception & ex)
+        {
+            std::cerr << "server: " << ex.what() << Server::LF;
+            return EXIT_FAILURE;
+        }
+	}
 	
     return EXIT_SUCCESS;
 }

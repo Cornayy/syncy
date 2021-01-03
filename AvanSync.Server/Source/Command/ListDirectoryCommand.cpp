@@ -6,5 +6,5 @@ void ListDirectoryCommand::execute(Connection& connection)
 
 bool ListDirectoryCommand::isMatch(const std::string& input) const
 {
-	return input == "list-directory";
+	return input == "dir";
 }

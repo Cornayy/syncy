@@ -6,5 +6,5 @@ void DeleteFileCommand::execute(Connection& connection)
 
 bool DeleteFileCommand::isMatch(const std::string& input) const
 {
-	return input == "delete-file";
+	return input == "del";
 }

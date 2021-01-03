@@ -6,5 +6,5 @@ void UploadFileCommand::execute(Connection& connection)
 
 bool UploadFileCommand::isMatch(const std::string& input) const
 {
-	return input == "upload-file";
+	return input == "put";
 }

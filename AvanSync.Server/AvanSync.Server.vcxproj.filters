@@ -18,9 +18,6 @@
     <ClCompile Include="Source\Factory\CommandFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Command\CloseConnectionCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Command\CreateDirectoryCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,12 +33,6 @@
     <ClCompile Include="Source\Command\RenameFileCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Command\ServerContextCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Command\SynchronizeDirectoryCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Command\UploadFileCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -52,6 +43,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Server\Connection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Command\QuitCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Command\InfoCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\File\FileService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\File\File.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,19 +83,22 @@
     <ClInclude Include="Header\Command\UploadFileCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Command\SynchronizeDirectoryCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Command\CloseConnectionCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Command\ServerContextCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Header\Server\Server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header\Server\Connection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Command\QuitCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Command\InfoCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\File\FileService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\File\File.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
