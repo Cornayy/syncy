@@ -1,6 +1,6 @@
 #include "../../Header/Command/InfoCommand.h"
 
-void InfoCommand::execute(Connection& connection)
+void InfoCommand::execute(Connection& connection, FileService& service)
 {
 	connection.send("AvanSync server 1.0, copyright (c) 2020 Corne Eggebeen.");
 }

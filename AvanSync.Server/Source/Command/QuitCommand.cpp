@@ -1,6 +1,6 @@
 #include "../../Header/Command/QuitCommand.h"
 
-void QuitCommand::execute(Connection& connection)
+void QuitCommand::execute(Connection& connection, FileService& service)
 {
 	connection.disconnect();
 }

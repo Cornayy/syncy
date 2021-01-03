@@ -9,7 +9,7 @@ _size{ size }
 {
 }
 
-const std::string& File::info() const
+std::string File::info() const
 {
 	const auto split = FileService::SPLIT;
 	return _type + split + _name + split + _timestamp + split + std::to_string(_size);

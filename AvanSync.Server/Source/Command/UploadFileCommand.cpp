@@ -1,6 +1,6 @@
 #include "../../Header/Command/UploadFileCommand.h"
 
-void UploadFileCommand::execute(Connection& connection)
+void UploadFileCommand::execute(Connection& connection, FileService& service)
 {
 }
 

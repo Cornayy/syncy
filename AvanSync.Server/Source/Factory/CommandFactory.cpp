@@ -23,10 +23,11 @@ CommandFactory::CommandFactory()
 std::unique_ptr<AbstractCommand> CommandFactory::create(const std::string& input)
 {
 	// Lowercase comparison.
-	std::transform(input.begin(), input.end(), input.begin(), ::tolower);
+	auto comparison{input};
+	std::transform(comparison.begin(), comparison.end(), comparison.begin(), ::tolower);
 	
 	for (auto& command : _commands) {
-		if (command->isMatch(input)) {
+		if (command->isMatch(comparison)) {
 			return std::move(command);
 		}
 	}

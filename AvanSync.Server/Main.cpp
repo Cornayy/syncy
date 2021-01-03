@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
-#include <stdexcept>
 #include <asio.hpp>
 #include "Header/Server/Server.h"
 
@@ -11,7 +10,7 @@ int main() {
 	{
         try
         {
-            const Server server{ Server::PORT };
+            const Server server{ Server::PORT, "Directory" };
             server.listen();
         }
         catch (const std::exception & ex)
