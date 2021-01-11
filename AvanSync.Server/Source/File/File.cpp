@@ -1,16 +1,19 @@
 #include "../../Header/File/File.h"
 #include "../../Header/File/FileService.h"
+#include <sstream>
 
-File::File(const std::string& type, const std::string& name, const std::string& timestamp, size_t size) :
+File::File(std::string type, std::string name, std::string timestamp, unsigned long long size) :
 _type { type },
 _name{ name },
 _timestamp{ timestamp },
 _size{ size }
 {
+    _timestamp.erase(std::remove(_timestamp.begin(), _timestamp.end(), '\0'), _timestamp.end());
 }
 
 std::string File::info() const
 {
-	const auto split = FileService::SPLIT;
-	return _type + split + _name + split + _timestamp + split + std::to_string(_size);
+    auto stream = std::stringstream{};
+    stream << _type << FileService::SPLIT << _name << FileService::SPLIT << _timestamp << FileService::SPLIT << _size;
+    return stream.str();
 }

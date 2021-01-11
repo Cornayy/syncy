@@ -1,10 +1,10 @@
 #pragma once
 #include "AbstractCommand.h"
 
-class ListDirectoryCommand : public AbstractCommand
+class DirCommand : public AbstractCommand
 {
 public:
-	ListDirectoryCommand() = default;
+	DirCommand() = default;
 	void execute(Connection& connection, FileService& service) override;
 	bool isMatch(const std::string& input) const override;
 };

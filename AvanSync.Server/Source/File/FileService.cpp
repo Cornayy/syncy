@@ -2,30 +2,47 @@
 
 const std::string FileService::OK_CODE = "OK";
 const std::string FileService::SPLIT = "|";
+const std::string FileService::NO_SUCH_DIRECTORY = "Error: no such directory";
+const std::string FileService::NO_SUCH_FILE = "Error: no such file";
+const std::string FileService::NO_PERMISSION = "Error: no permission";
 
-FileService::FileService(const std::string& serverPath) :
-_serverPath { std::filesystem::current_path().concat(serverPath).string() }
+FileService::FileService(const std::string& path) :
+_clientPath{ std::string("client") + "-" + path },
+_serverPath { std::string("server") + "-" + path }
 {
-	// Create the server directory if it does not exist yet.
+	// Create the synced directories if they do not exist yet.
+	if (!std::filesystem::exists(_clientPath)) {
+		std::filesystem::create_directory(_clientPath);
+	}
+	
 	if (!std::filesystem::exists(_serverPath)) {
 		std::filesystem::create_directory(_serverPath);
 	}
 }
 
-std::vector<std::unique_ptr<File>> FileService::retrieveListing(const std::string& path) const
+std::unique_ptr<std::vector<File>> FileService::retrieveListing(const std::string& path) const
 {
-	std::vector<std::unique_ptr<File>> files;
+	auto files = std::make_unique<std::vector<File>>();
 
-	for (const auto& file : std::filesystem::directory_iterator(std::filesystem::path(_serverPath).concat(path)))
+	for (const auto& file : std::filesystem::directory_iterator(std::filesystem::path(_serverPath) / path))
 	{
 		const auto& filePath = file.path();
 		const auto fileType = getType(filePath);
 		const auto size = fileType == "F" ? file.file_size() : 0;
+		
+		// Format timestamp.
 		const auto timestamp = getTime<decltype(file.last_write_time())>(file.last_write_time());
-		files.push_back(std::make_unique<File>(fileType, filePath.filename().string(), std::to_string(timestamp), static_cast<size_t>(size)));
+		std::vector<char> buffer(20);
+		std::strftime(buffer.data(), 20, "%Y-%m-%d %H:%M:%S", std::localtime(&timestamp));
+		files->emplace_back( fileType, filePath.filename().string(), std::string(buffer.data(), 20), size);
 	}
 
 	return files;
+}
+
+bool FileService::isValidDirectory(const std::string& path) const
+{
+	return exists(std::filesystem::path(_serverPath) / path);
 }
 
 std::string FileService::getType(const std::filesystem::path& path) const

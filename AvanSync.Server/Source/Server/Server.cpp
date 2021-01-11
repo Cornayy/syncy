@@ -23,7 +23,7 @@ void Server::listen() const
 		try
 		{
 			const auto& input = connection.next();
-			const auto command = _factory->create(input);
+			const auto& command = _factory->create(input);
 			command->execute(connection, *_fileService);
 		}
 		catch(const std::exception & ex)

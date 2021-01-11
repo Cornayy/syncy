@@ -150,6 +150,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Source\Client\Client.cpp" />
+    <ClCompile Include="Source\Client\CommandController.cpp" />
+    <ClCompile Include="Source\Client\Connection.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header\Client\Client.h" />
+    <ClInclude Include="Header\Client\CommandController.h" />
+    <ClInclude Include="Header\Client\Connection.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

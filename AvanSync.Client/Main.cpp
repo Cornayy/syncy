@@ -3,35 +3,18 @@
 #include <string>
 #include <stdexcept>
 #include <asio.hpp>
+#include "Header/Client/Client.h"
 
-int main() {
+int main()
+{
+    // Report memory leaks in output tab.
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	
     try {
-        const char* server_address{ "localhost" };
-        const char* server_port{ "5000" };
-        const char* prompt{ "avansync> " };
-        const char* lf{ "\n" };
-        const char* crlf{ "\r\n" };
-
-        asio::ip::tcp::iostream server{ server_address, server_port };
-        if (!server) throw std::runtime_error("could not connect to server");
-
-        while (server) {
-            std::string resp;
-            if (getline(server, resp)) {
-                resp.erase(resp.end() - 1); // remove '\r'
-                std::cout << resp << lf;
-                if (resp == "Bye.") break;
-
-                std::cout << prompt;
-                std::string req;
-                if (getline(std::cin, req)) {
-                    server << req << crlf;
-                }
-            }
-        }
-
+        const Client client{"localhost", "5000"};
+        client.listen();
     }
-    catch (const std::exception & ex) {
+    catch (const std::exception& ex) {
         std::cerr << "client: " << ex.what() << '\n';
         return EXIT_FAILURE;
     }

@@ -6,6 +6,7 @@ class Connection
 {
 public:
     Connection(int port);
+	~Connection();
     void connect();
     void disconnect();
     void send(const std::string& output);
