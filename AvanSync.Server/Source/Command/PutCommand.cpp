@@ -6,9 +6,9 @@ void PutCommand::execute(Connection& connection, const ServerFileService& servic
 	const auto size = std::stoul(connection.next());
 	const auto directory = ServerFileService::directory(path);
 
-	if(!service.isValidPath(directory))
+	if(!service.isDirectory(directory))
 	{
-		connection.send(ServerFileService::NO_SUCH_DIRECTORY);
+		connection.send(ServerFileService::INVALID_PATH);
 		return;
 	}
 

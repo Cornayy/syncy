@@ -4,7 +4,7 @@ void DirCommand::execute(Connection& connection, const ServerFileService& servic
 {
 	const auto path = connection.next();
 
-	if(service.isValidPath(path))
+	if(service.isDirectory(path))
 	{
 		const auto files = service.retrieveListing(path);
 		connection.send(std::to_string(files->size()));

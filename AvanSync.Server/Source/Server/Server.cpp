@@ -1,7 +1,7 @@
 #include "../../Header/Server/Server.h"
 #include <iostream>
 
-const int Server::PORT = 5000;
+const int Server::PORT = 3000;
 const char* Server::LF = "\n";
 const char* Server::CRLF = "\r\n";
 

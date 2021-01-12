@@ -21,7 +21,6 @@ void Client::listen() const
     	while(_connection->isActive())
     	{
             auto req = _connection->prompt();
-            _connection->send(req);
             _controller->handle(req);
     	}
     }

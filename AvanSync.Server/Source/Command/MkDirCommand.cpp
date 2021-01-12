@@ -5,7 +5,7 @@ void MkDirCommand::execute(Connection& connection, const ServerFileService& serv
 	const auto parent = connection.next();
 	const auto name = connection.next();
 
-	if (service.isValidPath(parent) && service.isDirectory(parent))
+	if (service.isDirectory(parent))
 	{
 		try
 		{

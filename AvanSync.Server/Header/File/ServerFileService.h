@@ -11,6 +11,7 @@ public:
 	static const std::string OK_CODE;
 	static const std::string SPLIT;
 	static const std::string NO_SUCH_ENTRY;
+	static const std::string INVALID_PATH;
 	static const std::string NO_SUCH_DIRECTORY;
 	static const std::string NO_SUCH_FILE;
 	static const std::string NO_PERMISSION;

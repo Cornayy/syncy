@@ -7,6 +7,7 @@ CommandController::CommandController(Connection& connection) :
 _connection{ connection },
 _fileService{ std::make_unique<ClientFileService>("dir") }
 {
+	registerCommand("info", [&] { info(); });
 	registerCommand("dir", [&] { dir(); });
 	registerCommand("quit", [&] { quit(); });
 	registerCommand("get", [&] { get(); });
@@ -20,8 +21,9 @@ void CommandController::dir() const
 {
 	const auto path = _connection.prompt();
 
-	if (_fileService->isValidPath(path) && _fileService->isDirectory(path))
+	if (_fileService->isDirectory(path))
 	{
+		_connection.send("dir");
 		_connection.send(path);
 
 		const auto response = _connection.next();
@@ -50,6 +52,7 @@ void CommandController::dir() const
 
 void CommandController::quit() const
 {
+	_connection.send("quit");
 	_connection.disconnect();
 }
 
@@ -57,8 +60,9 @@ void CommandController::get() const
 {
 	const auto path = _connection.prompt();
 
-	if (_fileService->isValidPath(path) && _fileService->isFile(path))
+	if ( _fileService->isFile(path))
 	{
+		_connection.send("get");
 		_connection.send(path);
 
 		const auto response = _connection.next();
@@ -83,11 +87,12 @@ void CommandController::put() const
 {
 	const auto path = _connection.prompt();
 
-	if (_fileService->isValidPath(path) && _fileService->isFile(path))
+	if (_fileService->isFile(path))
 	{
 		const auto size = _fileService->size(path);
 		const auto file = _fileService->retrieveFile(path);
 
+		_connection.send("put");
 		_connection.send(path);
 		_connection.send(std::to_string(size));
 
@@ -115,7 +120,8 @@ void CommandController::ren() const
 	if(_fileService->isValidPath(path))
 	{
 		const auto name = _connection.prompt();
-		
+
+		_connection.send("ren");
 		_connection.send(path);
 		_connection.send(name);
 
@@ -143,6 +149,7 @@ void CommandController::del() const
 
 	if (_fileService->isValidPath(path))
 	{
+		_connection.send("del");
 		_connection.send(path);
 		const auto response = _connection.next();
 
@@ -161,13 +168,22 @@ void CommandController::del() const
 	}
 }
 
+void CommandController::info() const
+{
+	_connection.send("info");
+	const auto response = _connection.next();
+	std::cout << response << Client::LF;
+}
+
 void CommandController::mkdir() const
 {
 	const auto parent = _connection.prompt();
 
-	if (_fileService->isValidPath(parent) && _fileService->isDirectory(parent))
+	if (_fileService->isDirectory(parent))
 	{
 		const auto name = _connection.prompt();
+
+		_connection.send("mkdir");
 		_connection.send(parent);
 		_connection.send(name);
 
@@ -192,14 +208,23 @@ void CommandController::handle(const std::string& input) const
 {
 	// Lowercase comparison.
 	auto comparison{ input };
+	auto found = false;
 	std::transform(comparison.begin(), comparison.end(), comparison.begin(), ::tolower);
 	
 	for (auto& command : _commands)
 	{
 		if (command.first == comparison)
 		{
+			found = true;
 			command.second();
 		}
+	}
+
+	if(!found)
+	{
+		_connection.send(input);
+		const auto response = _connection.next();
+		std::cout << response << Client::LF;
 	}
 }
 
@@ -207,3 +232,5 @@ void CommandController::registerCommand(const std::string& name, const std::func
 {
 	_commands[name] = command;
 }
+
+

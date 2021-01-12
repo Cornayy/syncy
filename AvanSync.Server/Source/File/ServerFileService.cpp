@@ -4,6 +4,7 @@ const std::string ServerFileService::OK_CODE = "OK";
 const std::string ServerFileService::SPLIT = "|";
 const std::string ServerFileService::NO_SUCH_DIRECTORY = "Error: no such directory";
 const std::string ServerFileService::NO_SUCH_FILE = "Error: no such file";
+const std::string ServerFileService::INVALID_PATH = "Error: invalid path";
 const std::string ServerFileService::NO_PERMISSION = "Error: no permission";
 const std::string ServerFileService::NOT_ENOUGH_DISK_SPACE = "Error: not enough disk space";
 const std::string ServerFileService::NO_SUCH_ENTRY = "Error: no such entry";

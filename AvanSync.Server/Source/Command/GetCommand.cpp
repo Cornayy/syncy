@@ -4,7 +4,7 @@ void GetCommand::execute(Connection& connection, const ServerFileService& servic
 {
 	const auto path = connection.next();
 
-	if(service.isValidPath(path) && service.isFile(path))
+	if(service.isFile(path))
 	{
 		try
 		{
