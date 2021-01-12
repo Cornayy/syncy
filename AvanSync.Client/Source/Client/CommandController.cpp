@@ -56,19 +56,27 @@ void CommandController::quit() const
 void CommandController::get() const
 {
 	const auto path = _connection.prompt();
-	_connection.send(path);
-	
-	const auto response = _connection.next();
-	unsigned long size;
-	try {
-		size = std::stoul(response);
-	}
-	catch (...) {
-		std::cout << response << Client::LF;
-		return;
-	}
 
-	_fileService->sendFile(path, _connection.server(), size);
+	if (_fileService->isValidPath(path) && _fileService->isFile(path))
+	{
+		_connection.send(path);
+
+		const auto response = _connection.next();
+		unsigned long size;
+		try {
+			size = std::stoul(response);
+		}
+		catch (...) {
+			std::cout << response << Client::LF;
+			return;
+		}
+
+		_fileService->sendFile(path, _connection.server(), size);
+	}
+	else
+	{
+		std::cout << ClientFileService::NO_SUCH_ENTRY << Client::LF;
+	}
 }
 
 void CommandController::put() const
