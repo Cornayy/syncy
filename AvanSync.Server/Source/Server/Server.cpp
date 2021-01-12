@@ -7,7 +7,7 @@ const char* Server::CRLF = "\r\n";
 
 Server::Server(int port, const std::string& path) :
 _port{ port },
-_fileService { std::make_unique<FileService>(path) },
+_fileService { std::make_unique<ServerFileService>(path) },
 _factory{ std::make_unique<CommandFactory>() }
 {
 }

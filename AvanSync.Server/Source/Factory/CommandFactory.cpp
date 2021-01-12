@@ -1,23 +1,23 @@
 #include "../../Header/Factory/CommandFactory.h"
 #include "../../Header/Command/QuitCommand.h"
-#include "../../Header/Command/CreateDirectoryCommand.h"
-#include "../../Header/Command/DeleteFileCommand.h"
-#include "../../Header/Command/DownloadFileCommand.h"
+#include "../../Header/Command/MkDirCommand.h"
+#include "../../Header/Command/DelCommand.h"
+#include "../../Header/Command/GetCommand.h"
 #include "../../Header/Command/DirCommand.h"
-#include "../../Header/Command/RenameFileCommand.h"
+#include "../../Header/Command/RenCommand.h"
 #include "../../Header/Command/InfoCommand.h"
-#include "../../Header/Command/UploadFileCommand.h"
+#include "../../Header/Command/PutCommand.h"
 
 CommandFactory::CommandFactory()
 {
 	_commands.push_back(std::make_unique<QuitCommand>());
-	_commands.push_back(std::make_unique<CreateDirectoryCommand>());
-	_commands.push_back(std::make_unique<DeleteFileCommand>());
-	_commands.push_back(std::make_unique<DownloadFileCommand>());
+	_commands.push_back(std::make_unique<MkDirCommand>());
+	_commands.push_back(std::make_unique<DelCommand>());
+	_commands.push_back(std::make_unique<GetCommand>());
 	_commands.push_back(std::make_unique<DirCommand>());
-	_commands.push_back(std::make_unique<RenameFileCommand>());
+	_commands.push_back(std::make_unique<RenCommand>());
 	_commands.push_back(std::make_unique<InfoCommand>());
-	_commands.push_back(std::make_unique<UploadFileCommand>());
+	_commands.push_back(std::make_unique<PutCommand>());
 }
 
 std::unique_ptr<AbstractCommand>& CommandFactory::create(const std::string& input)

@@ -1,5 +1,5 @@
 #include "../../Header/File/File.h"
-#include "../../Header/File/FileService.h"
+#include "../../Header/File/ServerFileService.h"
 #include <sstream>
 
 File::File(std::string type, std::string name, std::string timestamp, unsigned long long size) :
@@ -14,6 +14,6 @@ _size{ size }
 std::string File::info() const
 {
     auto stream = std::stringstream{};
-    stream << _type << FileService::SPLIT << _name << FileService::SPLIT << _timestamp << FileService::SPLIT << _size;
+    stream << _type << ServerFileService::SPLIT << _name << ServerFileService::SPLIT << _timestamp << ServerFileService::SPLIT << _size;
     return stream.str();
 }

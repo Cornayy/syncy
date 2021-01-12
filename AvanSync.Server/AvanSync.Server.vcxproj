@@ -150,18 +150,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Command\CreateDirectoryCommand.cpp" />
+    <ClCompile Include="Source\Command\MkDirCommand.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Command\QuitCommand.cpp" />
-    <ClCompile Include="Source\Command\DeleteFileCommand.cpp" />
-    <ClCompile Include="Source\Command\DownloadFileCommand.cpp" />
+    <ClCompile Include="Source\Command\DelCommand.cpp" />
+    <ClCompile Include="Source\Command\GetCommand.cpp" />
     <ClCompile Include="Source\Command\DirCommand.cpp" />
-    <ClCompile Include="Source\Command\RenameFileCommand.cpp" />
+    <ClCompile Include="Source\Command\RenCommand.cpp" />
     <ClCompile Include="Source\Command\InfoCommand.cpp" />
-    <ClCompile Include="Source\Command\UploadFileCommand.cpp" />
+    <ClCompile Include="Source\Command\PutCommand.cpp" />
     <ClCompile Include="Source\Factory\CommandFactory.cpp" />
     <ClCompile Include="Source\File\File.cpp" />
-    <ClCompile Include="Source\File\FileService.cpp" />
+    <ClCompile Include="Source\File\ServerFileService.cpp" />
     <ClCompile Include="Source\Server\Connection.cpp" />
     <ClCompile Include="Source\Server\Server.cpp" />
   </ItemGroup>
@@ -169,15 +169,15 @@
     <ClInclude Include="Header\Command\AbstractCommand.h" />
     <ClInclude Include="Header\Command\QuitCommand.h" />
     <ClInclude Include="Header\Command\InfoCommand.h" />
-    <ClInclude Include="Header\Command\CreateDirectoryCommand.h" />
+    <ClInclude Include="Header\Command\MkDirCommand.h" />
     <ClInclude Include="Header\Command\DirCommand.h" />
-    <ClInclude Include="Header\Command\DeleteFileCommand.h" />
-    <ClInclude Include="Header\Command\DownloadFileCommand.h" />
-    <ClInclude Include="Header\Command\UploadFileCommand.h" />
-    <ClInclude Include="Header\Command\RenameFileCommand.h" />
+    <ClInclude Include="Header\Command\DelCommand.h" />
+    <ClInclude Include="Header\Command\GetCommand.h" />
+    <ClInclude Include="Header\Command\PutCommand.h" />
+    <ClInclude Include="Header\Command\RenCommand.h" />
     <ClInclude Include="Header\Factory\CommandFactory.h" />
     <ClInclude Include="Header\File\File.h" />
-    <ClInclude Include="Header\File\FileService.h" />
+    <ClInclude Include="Header\File\ServerFileService.h" />
     <ClInclude Include="Header\Server\Connection.h" />
     <ClInclude Include="Header\Server\Server.h" />
   </ItemGroup>

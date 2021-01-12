@@ -1,10 +1,10 @@
 #include "../../Header/Command/DirCommand.h"
 
-void DirCommand::execute(Connection& connection, FileService& service)
+void DirCommand::execute(Connection& connection, const ServerFileService& service)
 {
 	const auto path = connection.next();
 
-	if(service.isValidDirectory(path))
+	if(service.isValidPath(path))
 	{
 		const auto files = service.retrieveListing(path);
 		connection.send(std::to_string(files->size()));
@@ -16,7 +16,7 @@ void DirCommand::execute(Connection& connection, FileService& service)
 	}
 	else
 	{
-		connection.send(FileService::NO_SUCH_DIRECTORY);
+		connection.send(ServerFileService::NO_SUCH_DIRECTORY);
 	}
 }
 

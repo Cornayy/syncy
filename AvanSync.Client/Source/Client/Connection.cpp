@@ -6,7 +6,8 @@ Connection::Connection(const std::string& address, const std::string& port) :
 _active { true },
 _server{ std::make_unique<asio::ip::tcp::iostream>(address, port) }
 {
-	if (!_server) {
+	if (!_server)
+	{
 		throw std::runtime_error("could not connect to server");
 	}
 }
@@ -20,9 +21,7 @@ std::string Connection::prompt() const
 {
 	std::cout << Client::PROMPT;
 	std::string req;
-	if (getline(std::cin, req)) {
-		send(req);
-	}
+	getline(std::cin, req);
 	return req;
 }
 
@@ -31,7 +30,8 @@ std::string Connection::next() const
 	std::string request;
 	getline(*_server, request);
 
-	if (_server->fail()) {
+	if (_server->fail())
+	{
 		throw std::runtime_error("the stream was interrupted");
 	}
 	
@@ -42,6 +42,11 @@ std::string Connection::next() const
 void Connection::send(const std::string& output) const
 {
 	*_server << output << Client::CRLF;
+}
+
+void Connection::send(const std::istream& stream) const
+{
+	*_server << stream.rdbuf();
 }
 
 void Connection::disconnect()

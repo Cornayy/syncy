@@ -2,7 +2,7 @@
 #include <memory>
 #include "../Factory/CommandFactory.h"
 #include "Connection.h"
-#include "../File/FileService.h"
+#include "../File/ServerFileService.h"
 
 class Server
 {
@@ -14,6 +14,6 @@ public:
 	void listen() const;
 private:
 	int _port;
-	std::unique_ptr<FileService> _fileService;
+	std::unique_ptr<ServerFileService> _fileService;
 	std::unique_ptr<CommandFactory> _factory;
 };

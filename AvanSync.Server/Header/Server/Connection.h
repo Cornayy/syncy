@@ -6,11 +6,12 @@ class Connection
 {
 public:
     Connection(int port);
-	~Connection();
     void connect();
     void disconnect();
     void send(const std::string& output);
+    void send(const std::istream& stream);
     bool isActive() const;
+    asio::ip::tcp::iostream& client();
     std::string next();
 private:
     bool _active;

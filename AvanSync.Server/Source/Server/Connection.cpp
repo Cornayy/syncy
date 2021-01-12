@@ -9,11 +9,6 @@ _server{ _context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port) }
 	_server.accept(_client.socket());
 }
 
-Connection::~Connection()
-{
-	_client.close();
-}
-
 void Connection::connect()
 {
 	std::cerr << "client connected from " << _client.socket().local_endpoint() << Server::LF;
@@ -32,6 +27,16 @@ void Connection::send(const std::string& output)
 	_client << output << Server::CRLF;
 }
 
+void Connection::send(const std::istream& stream)
+{
+	_client << stream.rdbuf();
+}
+
+asio::ip::tcp::iostream& Connection::client()
+{
+	return _client;
+}
+
 bool Connection::isActive() const
 {
 	return _active;
@@ -42,7 +47,8 @@ std::string Connection::next()
 	std::string request;
 	getline(_client, request);
 
-	if (_client.fail()) {
+	if (_client.fail()) 
+	{
 		throw std::runtime_error("the stream was interrupted");
 	}
 	

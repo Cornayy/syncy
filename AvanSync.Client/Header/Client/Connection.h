@@ -12,6 +12,7 @@ public:
 	bool isActive() const;
 	void disconnect();
 	void send(const std::string& output) const;
+	void send(const std::istream& stream) const;
 private:
 	bool _active;
 	std::unique_ptr<asio::ip::tcp::iostream> _server;
