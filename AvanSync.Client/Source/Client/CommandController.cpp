@@ -3,9 +3,9 @@
 #include <iostream>
 
 // Can't pass as const reference and save it, since we have to call a non-const method on the object.
-CommandController::CommandController(Connection& connection) :
-	_connection{ connection },
-	_fileService{ std::make_unique<ClientFileService>("dir") }
+CommandController::CommandController(ClientStreamWrapper& clientStream) :
+_clientStream{ clientStream },
+_fileService{ std::make_unique<ClientFileService>("dir") }
 {
 	registerCommand("info", [&] { info(); });
 	registerCommand("dir", [&] { dir(); });
@@ -20,14 +20,14 @@ CommandController::CommandController(Connection& connection) :
 
 void CommandController::dir() const
 {
-	const auto path = _connection.prompt();
+	const auto path = _clientStream.prompt();
 
 	if (_fileService->isDirectory(path))
 	{
-		_connection.send("dir");
-		_connection.send(path);
+		_clientStream.send("dir");
+		_clientStream.send(path);
 
-		const auto response = _connection.next();
+		const auto response = _clientStream.next();
 		auto listing = 0;
 
 		try
@@ -41,7 +41,7 @@ void CommandController::dir() const
 
 		for (auto i = 0; i < listing; ++i)
 		{
-			const auto result = _connection.next();
+			const auto result = _clientStream.next();
 			std::cout << result << Client::LF;
 		}
 	}
@@ -53,20 +53,20 @@ void CommandController::dir() const
 
 void CommandController::quit() const
 {
-	_connection.send("quit");
-	_connection.disconnect();
+	_clientStream.send("quit");
+	_clientStream.disconnect();
 }
 
 void CommandController::get() const
 {
-	const auto path = _connection.prompt();
+	const auto path = _clientStream.prompt();
 
 	if (_fileService->isFile(path))
 	{
-		_connection.send("get");
-		_connection.send(path);
+		_clientStream.send("get");
+		_clientStream.send(path);
 
-		const auto response = _connection.next();
+		const auto response = _clientStream.next();
 		unsigned long size;
 		try {
 			size = std::stoul(response);
@@ -76,7 +76,7 @@ void CommandController::get() const
 			return;
 		}
 
-		_fileService->sendFile(path, _connection.server(), size);
+		_fileService->sendFile(path, _clientStream.server(), size);
 		std::cout << ClientFileService::OK_DOWNLOAD << Client::LF;
 	}
 	else
@@ -87,18 +87,18 @@ void CommandController::get() const
 
 void CommandController::put() const
 {
-	const auto path = _connection.prompt();
+	const auto path = _clientStream.prompt();
 
 	if (_fileService->isFile(path))
 	{
 		const auto size = _fileService->size(path);
 		const auto file = _fileService->retrieveFile(path);
 
-		_connection.send("put");
-		_connection.send(path);
-		_connection.send(std::to_string(size));
+		_clientStream.send("put");
+		_clientStream.send(path);
+		_clientStream.send(std::to_string(size));
 
-		const auto response = _connection.next();
+		const auto response = _clientStream.next();
 
 		if (response != ClientFileService::OK_CODE)
 		{
@@ -108,7 +108,7 @@ void CommandController::put() const
 
 		if (size > 0)
 		{
-			_connection.send(*file);
+			_clientStream.send(*file);
 		}
 
 		std::cout << ClientFileService::OK_UPLOAD << Client::LF;
@@ -121,18 +121,18 @@ void CommandController::put() const
 
 void CommandController::ren() const
 {
-	const auto path = _connection.prompt();
+	const auto path = _clientStream.prompt();
 	if (path.empty()) return;
 
 	if (_fileService->isValidPath(path))
 	{
-		const auto name = _connection.prompt();
+		const auto name = _clientStream.prompt();
 
-		_connection.send("ren");
-		_connection.send(path);
-		_connection.send(name);
+		_clientStream.send("ren");
+		_clientStream.send(path);
+		_clientStream.send(name);
 
-		const auto response = _connection.next();
+		const auto response = _clientStream.next();
 
 		if (response != ClientFileService::OK_CODE)
 		{
@@ -151,14 +151,14 @@ void CommandController::ren() const
 
 void CommandController::del() const
 {
-	const auto path = _connection.prompt();
+	const auto path = _clientStream.prompt();
 	if (path.empty()) return;
 
 	if (_fileService->isValidPath(path))
 	{
-		_connection.send("del");
-		_connection.send(path);
-		const auto response = _connection.next();
+		_clientStream.send("del");
+		_clientStream.send(path);
+		const auto response = _clientStream.next();
 
 		if (response != ClientFileService::OK_CODE)
 		{
@@ -177,24 +177,24 @@ void CommandController::del() const
 
 void CommandController::info() const
 {
-	_connection.send("info");
-	const auto response = _connection.next();
+	_clientStream.send("info");
+	const auto response = _clientStream.next();
 	std::cout << response << Client::LF;
 }
 
 void CommandController::mkdir() const
 {
-	const auto parent = _connection.prompt();
+	const auto parent = _clientStream.prompt();
 
 	if (_fileService->isDirectory(parent))
 	{
-		const auto name = _connection.prompt();
+		const auto name = _clientStream.prompt();
 
-		_connection.send("mkdir");
-		_connection.send(parent);
-		_connection.send(name);
+		_clientStream.send("mkdir");
+		_clientStream.send(parent);
+		_clientStream.send(name);
 
-		const auto response = _connection.next();
+		const auto response = _clientStream.next();
 
 		if (response != ClientFileService::OK_CODE)
 		{
@@ -213,8 +213,8 @@ void CommandController::mkdir() const
 
 void CommandController::sync() const
 {
-	const auto service = std::make_unique<SyncService>(*_fileService, _connection);
-	const auto path = _connection.prompt();
+	const auto service = std::make_unique<SyncService>(*_fileService, _clientStream);
+	const auto path = _clientStream.prompt();
 	service->walk(path);
 
 	std::cout << ClientFileService::OK_SYNC << Client::LF;
@@ -227,7 +227,7 @@ void CommandController::handle(const std::string& input) const
 	auto found = false;
 	std::transform(comparison.begin(), comparison.end(), comparison.begin(), ::tolower);
 
-	for (auto& command : _commands)
+	for (const auto& command : _commands)
 	{
 		if (command.first == comparison)
 		{
@@ -238,8 +238,8 @@ void CommandController::handle(const std::string& input) const
 
 	if (!found)
 	{
-		_connection.send(input);
-		const auto response = _connection.next();
+		_clientStream.send(input);
+		const auto response = _clientStream.next();
 		std::cout << response << Client::LF;
 	}
 }

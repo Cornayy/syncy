@@ -1,26 +1,25 @@
 #include "../../Header/Client/Client.h"
 #include <iostream>
 
-const int Client::PORT = 5000;
 const char* Client::LF = "\n";
 const char* Client::CRLF = "\r\n";
 const char* Client::PROMPT = "avansync> ";
 
 Client::Client(const std::string& address, const std::string& port) :
-_connection{ std::make_unique<Connection>(address, port)},
-_controller{ std::make_unique<CommandController>(*_connection) }
+_clientStream{ std::make_unique<ClientStreamWrapper>(address, port)},
+_controller{ std::make_unique<CommandController>(*_clientStream) }
 {
 }
 
 void Client::listen() const
 {
-    while (_connection->server() && _connection->isActive()) {
-        const auto resp = _connection->next();
+    while (_clientStream->server() && _clientStream->isActive()) {
+        const auto resp = _clientStream->next();
         std::cout << resp << LF;
     	
-    	while(_connection->isActive())
+    	while(_clientStream->isActive())
     	{
-            auto req = _connection->prompt();
+            auto req = _clientStream->prompt();
             _controller->handle(req);
     	}
     }

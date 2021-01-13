@@ -15,20 +15,20 @@ _factory{ std::make_unique<CommandFactory>() }
 void Server::listen() const
 {
 	std::cerr << "waiting for client to connect" << LF;
-	Connection connection{ _port };
-	connection.connect();
+	ServerStreamWrapper serverStream{ _port };
+	serverStream.connect();
 
-	while(connection.isActive())
+	while(serverStream.isActive())
 	{
 		try
 		{
-			const auto& input = connection.next();
+			const auto& input = serverStream.next();
 			const auto& command = _factory->create(input);
-			command->execute(connection, *_fileService);
+			command->execute(serverStream, *_fileService);
 		}
 		catch(const std::exception & ex)
 		{
-			connection.send(ex.what());
+			serverStream.send(ex.what());
 		}
 	}
 }

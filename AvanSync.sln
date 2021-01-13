@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AvanSync.Server", "AvanSync
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AvanSync.Client", "AvanSync.Client\AvanSync.Client.vcxproj", "{93E3574A-9125-404B-8FBB-AA2E86E748DD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AvanSync.Test", "AvanSync.Test\AvanSync.Test.vcxproj", "{2B6F70E6-5C70-4EEC-AA2B-BB11BBDC6B73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{93E3574A-9125-404B-8FBB-AA2E86E748DD}.Release|x64.Build.0 = Release|x64
 		{93E3574A-9125-404B-8FBB-AA2E86E748DD}.Release|x86.ActiveCfg = Release|Win32
 		{93E3574A-9125-404B-8FBB-AA2E86E748DD}.Release|x86.Build.0 = Release|Win32
+		{2B6F70E6-5C70-4EEC-AA2B-BB11BBDC6B73}.Debug|x64.ActiveCfg = Debug|x64
+		{2B6F70E6-5C70-4EEC-AA2B-BB11BBDC6B73}.Debug|x64.Build.0 = Debug|x64
+		{2B6F70E6-5C70-4EEC-AA2B-BB11BBDC6B73}.Debug|x86.ActiveCfg = Debug|Win32
+		{2B6F70E6-5C70-4EEC-AA2B-BB11BBDC6B73}.Debug|x86.Build.0 = Debug|Win32
+		{2B6F70E6-5C70-4EEC-AA2B-BB11BBDC6B73}.Release|x64.ActiveCfg = Release|x64
+		{2B6F70E6-5C70-4EEC-AA2B-BB11BBDC6B73}.Release|x64.Build.0 = Release|x64
+		{2B6F70E6-5C70-4EEC-AA2B-BB11BBDC6B73}.Release|x86.ActiveCfg = Release|Win32
+		{2B6F70E6-5C70-4EEC-AA2B-BB11BBDC6B73}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

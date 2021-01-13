@@ -2,10 +2,10 @@
 #include <asio/ip/tcp.hpp>
 #include <string>
 
-class Connection
+class ClientStreamWrapper
 {
 public:
-	Connection(const std::string& address, const std::string& port);
+	ClientStreamWrapper(const std::string& address, const std::string& port);
 	asio::ip::tcp::iostream& server() const;
 	std::string prompt() const;
 	std::string next();

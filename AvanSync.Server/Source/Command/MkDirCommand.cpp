@@ -1,25 +1,25 @@
 #include "../../Header/Command/MkDirCommand.h"
 
-void MkDirCommand::execute(Connection& connection, const ServerFileService& service)
+void MkDirCommand::execute(ServerStreamWrapper& serverStream, const ServerFileService& service)
 {
-	const auto parent = connection.next();
-	const auto name = connection.next();
+	const auto parent = serverStream.next();
+	const auto name = serverStream.next();
 
 	if (service.isDirectory(parent))
 	{
 		try
 		{
 			service.createDirectory(parent, name);
-			connection.send(ServerFileService::OK_CODE);
+			serverStream.send(ServerFileService::OK_CODE);
 		}
 		catch(...)
 		{
-			connection.send(ServerFileService::NO_PERMISSION);
+			serverStream.send(ServerFileService::NO_PERMISSION);
 		}
 	}
 	else
 	{
-		connection.send(ServerFileService::NO_SUCH_DIRECTORY);
+		serverStream.send(ServerFileService::NO_SUCH_DIRECTORY);
 	}
 }
 

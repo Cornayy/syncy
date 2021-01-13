@@ -1,31 +1,31 @@
 #include "../../Header/Command/PutCommand.h"
 
-void PutCommand::execute(Connection& connection, const ServerFileService& service)
+void PutCommand::execute(ServerStreamWrapper& serverStream, const ServerFileService& service)
 {
-	const auto path = connection.next();
-	const auto size = std::stoul(connection.next());
+	const auto path = serverStream.next();
+	const auto size = std::stoul(serverStream.next());
 	const auto directory = ServerFileService::directory(path);
 
 	if(!service.isDirectory(directory))
 	{
-		connection.send(ServerFileService::INVALID_PATH);
+		serverStream.send(ServerFileService::INVALID_PATH);
 		return;
 	}
 
 	if(!service.canWrite(directory))
 	{
-		connection.send(ServerFileService::NOT_ENOUGH_DISK_SPACE);
+		serverStream.send(ServerFileService::NOT_ENOUGH_DISK_SPACE);
 		return;
 	}
 
 	try
 	{
-		connection.send(ServerFileService::OK_CODE);
-		service.sendFile(path, connection.client(), size);
+		serverStream.send(ServerFileService::OK_CODE);
+		service.sendFile(path, serverStream.client(), size);
 	}
 	catch(...)
 	{
-		connection.send(ServerFileService::NO_PERMISSION);
+		serverStream.send(ServerFileService::NO_PERMISSION);
 	}
 }
 

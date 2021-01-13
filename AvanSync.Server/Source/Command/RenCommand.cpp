@@ -1,25 +1,25 @@
 #include "../../Header/Command/RenCommand.h"
 
-void RenCommand::execute(Connection& connection, const ServerFileService& service)
+void RenCommand::execute(ServerStreamWrapper& serverStream, const ServerFileService& service)
 {
-	const auto path = connection.next();
-	const auto name = connection.next();
+	const auto path = serverStream.next();
+	const auto name = serverStream.next();
 
 	if (service.isValidPath(path))
 	{
 		try
 		{
 			service.rename(path, name);
-			connection.send(ServerFileService::OK_CODE);
+			serverStream.send(ServerFileService::OK_CODE);
 		}
 		catch (...)
 		{
-			connection.send(ServerFileService::NO_PERMISSION);
+			serverStream.send(ServerFileService::NO_PERMISSION);
 		}
 	}
 	else
 	{
-		connection.send(ServerFileService::NO_SUCH_ENTRY);
+		serverStream.send(ServerFileService::NO_SUCH_ENTRY);
 	}
 }
 

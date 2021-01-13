@@ -1,8 +1,8 @@
 #include "../../Header/Command/GetCommand.h"
 
-void GetCommand::execute(Connection& connection, const ServerFileService& service)
+void GetCommand::execute(ServerStreamWrapper& serverStream, const ServerFileService& service)
 {
-	const auto path = connection.next();
+	const auto path = serverStream.next();
 
 	if(service.isFile(path))
 	{
@@ -10,21 +10,21 @@ void GetCommand::execute(Connection& connection, const ServerFileService& servic
 		{
 			const auto file = service.retrieveFile(path);
 			const auto size = service.size(path);
-			connection.send(std::to_string(size));
+			serverStream.send(std::to_string(size));
 
 			if(size > 0)
 			{
-				connection.send(*file);
+				serverStream.send(*file);
 			}
 		}
 		catch(...)
 		{
-			connection.send(ServerFileService::NO_PERMISSION);
+			serverStream.send(ServerFileService::NO_PERMISSION);
 		}
 	}
 	else
 	{
-		connection.send(ServerFileService::NO_SUCH_FILE);
+		serverStream.send(ServerFileService::NO_SUCH_FILE);
 	}
 }
 

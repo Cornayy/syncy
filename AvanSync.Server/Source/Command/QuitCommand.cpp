@@ -1,8 +1,8 @@
 #include "../../Header/Command/QuitCommand.h"
 
-void QuitCommand::execute(Connection& connection, const ServerFileService& service)
+void QuitCommand::execute(ServerStreamWrapper& serverStream, const ServerFileService& service)
 {
-	connection.disconnect();
+	serverStream.disconnect();
 }
 
 bool QuitCommand::isMatch(const std::string& input) const

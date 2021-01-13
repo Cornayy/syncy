@@ -2,17 +2,17 @@
 #include <functional>
 #include <string>
 #include <unordered_map>
-#include "../Client/Connection.h"
+#include "../Client/ClientStreamWrapper.h"
 #include "../File/ClientFileService.h"
-#include "../../Header/File/SyncService.h"
+#include "../File/SyncService.h"
 
 class CommandController
 {
 public:
-	CommandController(Connection& connection);
+	CommandController(ClientStreamWrapper& clientStream);
 	void handle(const std::string& input) const;
 private:
-	Connection& _connection;
+	ClientStreamWrapper& _clientStream;
 	std::unordered_map<std::string, std::function<void()>> _commands;
 	std::unique_ptr<ClientFileService> _fileService;
 	void registerCommand(const std::string& name, const std::function<void()>& command);

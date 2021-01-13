@@ -1,22 +1,22 @@
 #include "../../Header/Command/DirCommand.h"
 
-void DirCommand::execute(Connection& connection, const ServerFileService& service)
+void DirCommand::execute(ServerStreamWrapper& serverStream, const ServerFileService& service)
 {
-	const auto path = connection.next();
+	const auto path = serverStream.next();
 
 	if(service.isDirectory(path))
 	{
 		const auto files = service.retrieveListing(path);
-		connection.send(std::to_string(files->size()));
+		serverStream.send(std::to_string(files->size()));
 
 		for (const auto& file : *files)
 		{
-			connection.send(file.info());
+			serverStream.send(file.info());
 		}
 	}
 	else
 	{
-		connection.send(ServerFileService::NO_SUCH_DIRECTORY);
+		serverStream.send(ServerFileService::NO_SUCH_DIRECTORY);
 	}
 }
 

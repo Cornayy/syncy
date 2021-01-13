@@ -1,24 +1,24 @@
 #include "../../Header/Command/DelCommand.h"
 
-void DelCommand::execute(Connection& connection, const ServerFileService& service)
+void DelCommand::execute(ServerStreamWrapper& serverStream, const ServerFileService& service)
 {
-	const auto path = connection.next();
+	const auto path = serverStream.next();
 
 	if (service.isValidPath(path))
 	{
 		try
 		{
 			service.remove(path);
-			connection.send(ServerFileService::OK_CODE);
+			serverStream.send(ServerFileService::OK_CODE);
 		}
 		catch(...)
 		{
-			connection.send(ServerFileService::NO_PERMISSION);
+			serverStream.send(ServerFileService::NO_PERMISSION);
 		}
 	}
 	else
 	{
-		connection.send(ServerFileService::NO_SUCH_ENTRY);
+		serverStream.send(ServerFileService::NO_SUCH_ENTRY);
 	}
 }
 

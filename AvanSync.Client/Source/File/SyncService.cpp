@@ -2,9 +2,9 @@
 #include <iostream>
 #include "../../Header/Client/Client.h"
 
-SyncService::SyncService(const ClientFileService& fileService, Connection& connection) :
+SyncService::SyncService(const ClientFileService& fileService, ClientStreamWrapper& clientStream) :
 _fileService { fileService },
-_connection { connection }
+_clientStream { clientStream }
 {
 }
 
@@ -18,11 +18,11 @@ void SyncService::walk(const std::string& path) const
 			const auto parent = std::filesystem::path{ path }.remove_filename().string();
 			const auto name = std::filesystem::path{ path }.filename().string();
 
-			_connection.send("mkdir");
-			_connection.send(parent);
-			_connection.send(name);
+			_clientStream.send("mkdir");
+			_clientStream.send(parent);
+			_clientStream.send(name);
 
-			const auto response = _connection.next();
+			const auto response = _clientStream.next();
 
 			if (response != ClientFileService::OK_CODE)
 			{
@@ -59,11 +59,11 @@ void SyncService::syncClientFiles(const std::string& path, const std::vector<Cli
 			const auto size = _fileService.size(clientPath);
 			const auto file = _fileService.retrieveFile(clientPath);
 
-			_connection.send("put");
-			_connection.send(clientPath);
-			_connection.send(std::to_string(size));
+			_clientStream.send("put");
+			_clientStream.send(clientPath);
+			_clientStream.send(std::to_string(size));
 
-			const auto response = _connection.next();
+			const auto response = _clientStream.next();
 
 			if (response != ClientFileService::OK_CODE)
 			{
@@ -73,7 +73,7 @@ void SyncService::syncClientFiles(const std::string& path, const std::vector<Cli
 
 			if (size > 0)
 			{
-				_connection.send(*file);
+				_clientStream.send(*file);
 			}
 		}
 		// Recursively walk through all directories.
@@ -94,9 +94,9 @@ void SyncService::syncServerFiles(const std::string& path, const std::vector<Cli
 		if (clientFile == clientFiles.end())
 		{
 			const auto serverPath = _fileService.merge(path, file.name());
-			_connection.send("del");
-			_connection.send(serverPath);
-			const auto response = _connection.next();
+			_clientStream.send("del");
+			_clientStream.send(serverPath);
+			const auto response = _clientStream.next();
 
 			if (response != ClientFileService::OK_CODE)
 			{

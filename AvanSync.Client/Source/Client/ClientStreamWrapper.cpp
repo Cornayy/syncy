@@ -1,8 +1,8 @@
-#include "../../Header/Client/Connection.h"
+#include "../../Header/Client/ClientStreamWrapper.h"
 #include "../../Header/Client/Client.h"
 #include <iostream>
 
-Connection::Connection(const std::string& address, const std::string& port) :
+ClientStreamWrapper::ClientStreamWrapper(const std::string& address, const std::string& port) :
 _active { true },
 _server{ std::make_unique<asio::ip::tcp::iostream>(address, port) }
 {
@@ -12,12 +12,12 @@ _server{ std::make_unique<asio::ip::tcp::iostream>(address, port) }
 	}
 }
 
-asio::ip::tcp::iostream& Connection::server() const
+asio::ip::tcp::iostream& ClientStreamWrapper::server() const
 {
 	return *_server;
 }
 
-std::string Connection::prompt() const
+std::string ClientStreamWrapper::prompt() const
 {
 	std::cout << Client::PROMPT;
 	std::string req;
@@ -25,7 +25,7 @@ std::string Connection::prompt() const
 	return req;
 }
 
-std::string Connection::next()
+std::string ClientStreamWrapper::next()
 {
 	std::string request;
 	getline(*_server, request);
@@ -40,22 +40,22 @@ std::string Connection::next()
 	return request;
 }
 
-void Connection::send(const std::string& output) const
+void ClientStreamWrapper::send(const std::string& output) const
 {
 	*_server << output << Client::CRLF;
 }
 
-void Connection::send(const std::istream& stream) const
+void ClientStreamWrapper::send(const std::istream& stream) const
 {
 	*_server << stream.rdbuf();
 }
 
-void Connection::disconnect()
+void ClientStreamWrapper::disconnect()
 {
 	_active = false;
 }
 
-bool Connection::isActive() const
+bool ClientStreamWrapper::isActive() const
 {
 	return _active;
 }

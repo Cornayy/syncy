@@ -153,7 +153,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Source\Client\Client.cpp" />
     <ClCompile Include="Source\Client\CommandController.cpp" />
-    <ClCompile Include="Source\Client\Connection.cpp" />
+    <ClCompile Include="Source\Client\ClientStreamWrapper.cpp" />
     <ClCompile Include="Source\File\ClientFileService.cpp" />
     <ClCompile Include="Source\File\ClientFile.cpp" />
     <ClCompile Include="Source\File\SyncService.cpp" />
@@ -161,7 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Header\Client\Client.h" />
     <ClInclude Include="Header\Client\CommandController.h" />
-    <ClInclude Include="Header\Client\Connection.h" />
+    <ClInclude Include="Header\Client\ClientStreamWrapper.h" />
     <ClInclude Include="Header\File\ClientFileService.h" />
     <ClInclude Include="Header\File\ClientFile.h" />
     <ClInclude Include="Header\File\SyncService.h" />

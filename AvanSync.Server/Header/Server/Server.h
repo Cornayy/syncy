@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include "../Factory/CommandFactory.h"
-#include "Connection.h"
 #include "../File/ServerFileService.h"
 
 class Server

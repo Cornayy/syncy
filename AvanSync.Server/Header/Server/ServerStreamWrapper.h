@@ -2,10 +2,10 @@
 #include <asio/io_context.hpp>
 #include <asio/ip/tcp.hpp>
 
-class Connection
+class ServerStreamWrapper
 {
 public:
-    Connection(int port);
+    ServerStreamWrapper(int port);
     void connect();
     void disconnect();
     void send(const std::string& output);

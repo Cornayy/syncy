@@ -21,9 +21,6 @@
     <ClCompile Include="Source\Client\Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Client\Connection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Client\CommandController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,12 +33,12 @@
     <ClCompile Include="Source\File\SyncService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Client\ClientStreamWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Client\Client.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\Client\Connection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header\Client\CommandController.h">
@@ -54,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header\File\SyncService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Client\ClientStreamWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
