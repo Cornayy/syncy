@@ -20,7 +20,7 @@ CommandFactory::CommandFactory()
 	_commands.push_back(std::make_unique<PutCommand>());
 }
 
-std::unique_ptr<AbstractCommand>& CommandFactory::create(const std::string& input)
+std::unique_ptr<BaseCommand>& CommandFactory::create(const std::string& input)
 {
 	// Lowercase comparison.
 	auto comparison{input};

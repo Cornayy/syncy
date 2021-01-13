@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <filesystem>
-#include "File.h"
+#include "ServerFile.h"
 #include <fstream>
 
 class ServerFileService
@@ -16,7 +16,7 @@ public:
 	static const std::string NO_SUCH_FILE;
 	static const std::string NO_PERMISSION;
 	static const std::string NOT_ENOUGH_DISK_SPACE;
-	std::unique_ptr<std::vector<File>> retrieveListing(const std::string& path) const;
+	std::unique_ptr<std::vector<ServerFile>> retrieveListing(const std::string& path) const;
 	std::unique_ptr<std::istream> retrieveFile(const std::string& path) const;
 	static std::string directory(const std::filesystem::path& path);
 	void remove(const std::string& path) const;

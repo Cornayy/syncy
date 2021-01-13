@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "../Client/Connection.h"
 #include "../File/ClientFileService.h"
+#include "../../Header/File/SyncService.h"
 
 class CommandController
 {
@@ -23,4 +24,5 @@ private:
 	void ren() const;
 	void del() const;
 	void mkdir() const;
+	void sync() const;
 };

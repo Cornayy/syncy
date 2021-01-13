@@ -1,10 +1,9 @@
 #pragma once
-#include "AbstractCommand.h"
+#include "BaseCommand.h"
 
-class RenCommand : public AbstractCommand
+class RenCommand : public BaseCommand
 {
 public:
-	RenCommand() = default;
 	void execute(Connection& connection, const ServerFileService& service) override;
 	bool isMatch(const std::string& input) const override;
 };

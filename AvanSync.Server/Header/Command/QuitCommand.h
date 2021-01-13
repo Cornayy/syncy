@@ -1,10 +1,9 @@
 #pragma once
-#include "AbstractCommand.h"
+#include "BaseCommand.h"
 
-class QuitCommand : public AbstractCommand
+class QuitCommand : public BaseCommand
 {
 public:
-	QuitCommand() = default;
 	void execute(Connection& connection, const ServerFileService& service) override;
 	bool isMatch(const std::string& input) const override;
 };

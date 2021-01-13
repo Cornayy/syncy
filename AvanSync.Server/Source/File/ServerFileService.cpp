@@ -10,7 +10,7 @@ const std::string ServerFileService::NOT_ENOUGH_DISK_SPACE = "Error: not enough 
 const std::string ServerFileService::NO_SUCH_ENTRY = "Error: no such entry";
 
 ServerFileService::ServerFileService(const std::string& path) :
-_servicePath { std::string("server") + "-" + path }
+_servicePath { std::string("D:\\server") + "-" + path }
 {
 	// Create the synced directory if it does not exist yet.
 	if (!std::filesystem::exists(_servicePath))
@@ -19,9 +19,9 @@ _servicePath { std::string("server") + "-" + path }
 	}
 }
 
-std::unique_ptr<std::vector<File>> ServerFileService::retrieveListing(const std::string& path) const
+std::unique_ptr<std::vector<ServerFile>> ServerFileService::retrieveListing(const std::string& path) const
 {
-	auto files = std::make_unique<std::vector<File>>();
+	auto files = std::make_unique<std::vector<ServerFile>>();
 
 	for (const auto& file : std::filesystem::directory_iterator(std::filesystem::path(_servicePath) / path))
 	{

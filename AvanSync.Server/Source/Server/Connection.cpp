@@ -49,6 +49,7 @@ std::string Connection::next()
 
 	if (_client.fail()) 
 	{
+		throw std::exception{ "the stream failed" };
 		_active = false;
 	}
 	

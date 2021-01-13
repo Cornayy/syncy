@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 
-class File
+class ServerFile
 {
 public:
-	File(const std::string type, const std::string name, const std::string timestamp, unsigned long long size);
+	ServerFile(std::string type, std::string name, std::string timestamp, unsigned long long size);
 	std::string info() const;
 private:
 	std::string _type;

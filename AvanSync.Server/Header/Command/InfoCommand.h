@@ -1,10 +1,9 @@
 #pragma once
-#include "AbstractCommand.h"
+#include "BaseCommand.h"
 
-class InfoCommand : public AbstractCommand
+class InfoCommand : public BaseCommand
 {
 public:
-	InfoCommand() = default;
 	void execute(Connection& connection, const ServerFileService& service) override;
 	bool isMatch(const std::string& input) const override;
 };

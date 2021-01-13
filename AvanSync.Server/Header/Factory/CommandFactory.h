@@ -1,5 +1,5 @@
 #pragma once
-#include "../Command/AbstractCommand.h"
+#include "../Command/BaseCommand.h"
 #include <memory>
 #include <vector>
 
@@ -7,7 +7,7 @@ class CommandFactory
 {
 public:
 	CommandFactory();
-	std::unique_ptr<AbstractCommand>& create(const std::string& input);
+	std::unique_ptr<BaseCommand>& create(const std::string& input);
 private:
-	std::vector<std::unique_ptr<AbstractCommand>> _commands;
+	std::vector<std::unique_ptr<BaseCommand>> _commands;
 };

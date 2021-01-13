@@ -4,8 +4,8 @@
 
 // Can't pass as const reference and save it, since we have to call a non-const method on the object.
 CommandController::CommandController(Connection& connection) :
-_connection{ connection },
-_fileService{ std::make_unique<ClientFileService>("dir") }
+	_connection{ connection },
+	_fileService{ std::make_unique<ClientFileService>("dir") }
 {
 	registerCommand("info", [&] { info(); });
 	registerCommand("dir", [&] { dir(); });
@@ -15,6 +15,7 @@ _fileService{ std::make_unique<ClientFileService>("dir") }
 	registerCommand("ren", [&] { ren(); });
 	registerCommand("del", [&] { del(); });
 	registerCommand("mkdir", [&] { mkdir(); });
+	registerCommand("sync", [&] { sync(); });
 }
 
 void CommandController::dir() const
@@ -60,7 +61,7 @@ void CommandController::get() const
 {
 	const auto path = _connection.prompt();
 
-	if ( _fileService->isFile(path))
+	if (_fileService->isFile(path))
 	{
 		_connection.send("get");
 		_connection.send(path);
@@ -104,7 +105,7 @@ void CommandController::put() const
 			return;
 		}
 
-		if(size > 0)
+		if (size > 0)
 		{
 			_connection.send(*file);
 		}
@@ -120,7 +121,7 @@ void CommandController::ren() const
 	const auto path = _connection.prompt();
 	if (path.empty()) return;
 
-	if(_fileService->isValidPath(path))
+	if (_fileService->isValidPath(path))
 	{
 		const auto name = _connection.prompt();
 
@@ -130,7 +131,7 @@ void CommandController::ren() const
 
 		const auto response = _connection.next();
 
-		if(response != ClientFileService::OK_CODE)
+		if (response != ClientFileService::OK_CODE)
 		{
 			std::cout << response << Client::LF;
 			return;
@@ -207,13 +208,22 @@ void CommandController::mkdir() const
 	}
 }
 
+void CommandController::sync() const
+{
+	const auto service = std::make_unique<SyncService>(*_fileService, _connection);
+	const auto path = _connection.prompt();
+	service->walk(path);
+
+	std::cout << ClientFileService::OK_SYNC << Client::LF;
+}
+
 void CommandController::handle(const std::string& input) const
 {
 	// Lowercase comparison.
 	auto comparison{ input };
 	auto found = false;
 	std::transform(comparison.begin(), comparison.end(), comparison.begin(), ::tolower);
-	
+
 	for (auto& command : _commands)
 	{
 		if (command.first == comparison)
@@ -223,7 +233,7 @@ void CommandController::handle(const std::string& input) const
 		}
 	}
 
-	if(!found)
+	if (!found)
 	{
 		_connection.send(input);
 		const auto response = _connection.next();
@@ -235,5 +245,3 @@ void CommandController::registerCommand(const std::string& name, const std::func
 {
 	_commands[name] = command;
 }
-
-
