@@ -77,6 +77,7 @@ void CommandController::get() const
 		}
 
 		_fileService->sendFile(path, _connection.server(), size);
+		std::cout << ClientFileService::OK_DOWNLOAD << Client::LF;
 	}
 	else
 	{
@@ -109,6 +110,8 @@ void CommandController::put() const
 		{
 			_connection.send(*file);
 		}
+
+		std::cout << ClientFileService::OK_UPLOAD << Client::LF;
 	}
 	else
 	{

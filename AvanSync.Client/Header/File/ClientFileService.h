@@ -13,6 +13,8 @@ public:
 	static const std::string OK_SYNC;
 	static const std::string OK_RENAMED;
 	static const std::string OK_DELETED;
+	static const std::string OK_UPLOAD;
+	static const std::string OK_DOWNLOAD;
 	static const std::string OK_NEW_DIRECTORY;
 	static const std::string NO_SUCH_ENTRY;
 	ClientFileService(const std::string& path);
