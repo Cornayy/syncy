@@ -57,7 +57,7 @@ void SyncService::syncClientFiles(const std::string& path, const std::vector<Cli
 			// Upload the client file to the server.
 			const auto clientPath = _fileService.merge(path, file.name());
 			const auto size = _fileService.size(clientPath);
-			const auto file = _fileService.retrieveFile(clientPath);
+			const auto retrieved = _fileService.retrieveFile(clientPath);
 
 			_clientStream.send("put");
 			_clientStream.send(clientPath);
@@ -73,7 +73,7 @@ void SyncService::syncClientFiles(const std::string& path, const std::vector<Cli
 
 			if (size > 0)
 			{
-				_clientStream.send(*file);
+				_clientStream.send(*retrieved);
 			}
 		}
 		// Recursively walk through all directories.

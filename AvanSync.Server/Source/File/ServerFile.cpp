@@ -1,11 +1,12 @@
 #include "../../Header/File/ServerFile.h"
 #include "../../Header/File/ServerFileService.h"
 #include <sstream>
+#include <utility>
 
 ServerFile::ServerFile(std::string type, std::string name, std::string timestamp, unsigned long long size) :
-_type { type },
-_name{ name },
-_timestamp{ timestamp },
+_type { std::move(type) },
+_name{ std::move(name) },
+_timestamp{ std::move(timestamp) },
 _size{ size }
 {
     _timestamp.erase(std::remove(_timestamp.begin(), _timestamp.end(), '\0'), _timestamp.end());

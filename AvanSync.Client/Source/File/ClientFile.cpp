@@ -1,11 +1,12 @@
 #include "../../Header/File/ClientFile.h"
 #include "../../Header/File/ClientFileService.h"
 #include <sstream>
+#include <utility>
 
 ClientFile::ClientFile(std::string type, std::string name, std::string timestamp, std::time_t timestampTime, unsigned long long size) :
-_type { type },
-_name{ name },
-_timestamp{ timestamp },
+_type { std::move(type) },
+_name{ std::move(name) },
+_timestamp{ std::move(timestamp) },
 _timestampTime { timestampTime },
 _size{ size }
 {
