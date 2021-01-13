@@ -32,8 +32,8 @@ std::string ClientStreamWrapper::next()
 
 	if (_server->fail())
 	{
-		throw std::exception{ "the stream failed" };
 		_active = false;
+		throw std::exception{ "the stream failed" };
 	}
 	
 	request.erase(request.end() - 1);

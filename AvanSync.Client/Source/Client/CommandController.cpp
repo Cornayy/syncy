@@ -2,7 +2,6 @@
 #include "../../Header/Client/Client.h"
 #include <iostream>
 
-// Can't pass as const reference and save it, since we have to call a non-const method on the object.
 CommandController::CommandController(ClientStreamWrapper& clientStream) :
 _clientStream{ clientStream },
 _fileService{ std::make_unique<ClientFileService>("dir") }
