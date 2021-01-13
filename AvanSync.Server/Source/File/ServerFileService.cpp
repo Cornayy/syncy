@@ -41,7 +41,10 @@ std::unique_ptr<std::vector<File>> ServerFileService::retrieveListing(const std:
 
 std::unique_ptr<std::istream> ServerFileService::retrieveFile(const std::string& path) const
 {
-	return std::make_unique<std::ifstream>(std::filesystem::path(_servicePath) / path, std::ifstream::in | std::ifstream::binary);
+	// Enable exceptions for the stream.
+	auto file = std::make_unique<std::ifstream>(std::filesystem::path(_servicePath) / path, std::ifstream::in | std::ifstream::binary);
+	file->exceptions(std::ifstream::badbit);
+	return file;
 }
 
 std::string ServerFileService::directory(const std::filesystem::path& path)
@@ -67,9 +70,9 @@ void ServerFileService::sendFile(const std::string& path, std::istream& stream, 
 
 	if (size > 0)
 	{
-		// Copy the contents from the stream.
-		std::copy_n(std::istreambuf_iterator<char>(stream), size, std::ostreambuf_iterator<char>(writer));
-		stream.ignore(1);
+		auto buffer = std::vector<char>(size);
+		stream.read(buffer.data(), buffer.size());
+		writer.write(buffer.data(), buffer.size());
 	}
 	
 	writer.close();

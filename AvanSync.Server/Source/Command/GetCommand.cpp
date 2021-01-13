@@ -10,11 +10,12 @@ void GetCommand::execute(Connection& connection, const ServerFileService& servic
 		{
 			const auto file = service.retrieveFile(path);
 			const auto size = service.size(path);
-
-			// Enable exceptions for the stream.
-			file->exceptions(std::ifstream::badbit);
 			connection.send(std::to_string(size));
-			connection.send(*file);
+
+			if(size > 0)
+			{
+				connection.send(*file);
+			}
 		}
 		catch(...)
 		{

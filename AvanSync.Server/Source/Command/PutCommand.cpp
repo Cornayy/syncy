@@ -21,8 +21,7 @@ void PutCommand::execute(Connection& connection, const ServerFileService& servic
 	try
 	{
 		connection.send(ServerFileService::OK_CODE);
-		auto& stream = connection.client();
-		service.sendFile(path, stream, size);
+		service.sendFile(path, connection.client(), size);
 	}
 	catch(...)
 	{

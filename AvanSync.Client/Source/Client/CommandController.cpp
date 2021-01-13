@@ -104,7 +104,10 @@ void CommandController::put() const
 			return;
 		}
 
-		_connection.send(*file);
+		if(size > 0)
+		{
+			_connection.send(*file);
+		}
 	}
 	else
 	{
