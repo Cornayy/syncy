@@ -49,7 +49,7 @@ std::string Connection::next()
 
 	if (_client.fail()) 
 	{
-		throw std::runtime_error("the stream was interrupted");
+		_active = false;
 	}
 	
 	request.erase(request.end() - 1);

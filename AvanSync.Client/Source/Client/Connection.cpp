@@ -25,14 +25,14 @@ std::string Connection::prompt() const
 	return req;
 }
 
-std::string Connection::next() const
+std::string Connection::next()
 {
 	std::string request;
 	getline(*_server, request);
 
 	if (_server->fail())
 	{
-		throw std::runtime_error("the stream was interrupted");
+		_active = false;
 	}
 	
 	request.erase(request.end() - 1);

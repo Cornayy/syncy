@@ -8,7 +8,7 @@ public:
 	Connection(const std::string& address, const std::string& port);
 	asio::ip::tcp::iostream& server() const;
 	std::string prompt() const;
-	std::string next() const;
+	std::string next();
 	bool isActive() const;
 	void disconnect();
 	void send(const std::string& output) const;
